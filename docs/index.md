@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Index
-      link: /ELK
+      link: /elk-stack
     - theme: alt
       text: API Examples
       link: /api-examples
@@ -18,7 +18,7 @@ hero:
 features:
   - title: ELK Stack
     details: Documentation for the ELK stack used in the project
-    link: /ELK
+    link: /elk-stack
   - title: Frontend
     details: Documentation for the frontend of the project
   - title: Backend
