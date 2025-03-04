@@ -35,7 +35,17 @@ export default defineConfig({
       {
         text: 'Frontend',
         items: []
+      },
+      {
+        text: 'API / Endpoints',
+        items: [ 
+          { text: 'Users', link: '/api_users'},
+          { text: 'Matchs', link: '/api_matchs'},
+          { text: 'Tournaments', link: '/api_tournaments'},
+
+        ]
       }
+
     ],
 
     socialLinks: [
