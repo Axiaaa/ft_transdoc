@@ -20,17 +20,26 @@ export default defineConfig({
           { text: 'ELK Stack', link: '/elk-stack'},
           { text: 'Elasticsearch', link: '/elasticsearch'},
           { text: 'Logstash', link: '/logstash'},
-          { text: 'Kibana', link: '/kibana'}
+          { text: 'Kibana', link: '/kibana'},
+          { text: 'Filebeat', link: '/filebeat'}
         ]
       }, 
       {
         text: 'Backend',
         items: [
-          { text: 'PostGreSQL', link: '/postgresql'},
-          { text: 'PGadmin', link: '/PGadmin'},
-          { text: 'Django', link: '/django'},
+          { text: 'SQLite', link: '/SQLite'},
+          { text: 'Fastify', link: '/Fastify'},
         ]
 
+      },
+      {
+        text: 'Monitoring',
+        items: [
+          { text: 'Grafana', link: '/Grafana'},
+          { text: 'Prometheus', link: '/Prometheus'},
+          { text: 'Node Exporter', link: '/NodeExporter'},
+          { text: 'Cadvisor', link: '/Cadvisor'},
+        ]
       },
       {
         text: 'Frontend',
