@@ -1,198 +1,158 @@
-# Match API Documentation
-
-This API provides endpoints to manage and retrieve information about matches, including player matchups, tournament involvement, and match results.
+# API Documentation: User Routes
 
 ## Base URL
-```
-/matchs
-```
+`/users`
 
 ---
 
-## Endpoints
+### **GET /users**
+**Description:** Retrieve all users.
 
-### 1. **Get Match by ID**
-Retrieve a specific match by its ID.
+**Response:**
+- 200 OK: Returns an array of user objects.
+- 404 Not Found: If no users are found.
 
-- **URL:** `/matchs/:id`
-- **Method:** `GET`
-- **Parameters:**
-  - `id` (string): The unique ID of the match.
-- **Response:**
-  - **200 OK**: If the match is found, the match data is returned.
-  - **404 Not Found**: If the match is not found.
-
-#### Example Request:
-```
-GET /matchs/123
-```
-
-#### Example Response:
-```json
-{
-  "id": "123",
-  "player1": "1",
-  "player2": "2",
-  "winner": "1",
-  "score": "3-1",
-  "created_at": "2025-01-01T10:00:00Z",
-  "is_tournament": true,
-  "tournament_id": 456
-}
-```
-
----
-
-### 2. **Get All Matches**
-Retrieve all matches.
-
-- **URL:** `/matchs`
-- **Method:** `GET`
-- **Response:**
-  - **200 OK**: Returns an array of match data.
-  - **404 Not Found**: If no matches are found.
-
-#### Example Request:
-```
-GET /matchs
-```
-
-#### Example Response:
+**Example response:**
 ```json
 [
-  {
-    "id": "123",
-    "player1": "1",
-    "player2": "2",
-    "winner": "1",
-    "score": "3-1",
-    "created_at": "2025-01-01T10:00:00Z",
-    "is_tournament": true,
-    "tournament_id": 456
-  },
-  {
-    "id": "124",
-    "player1": "3",
-    "player2": "4",
-    "winner": "3",
-    "score": "2-1",
-    "created_at": "2025-01-02T10:00:00Z",
-    "is_tournament": false
-  }
+  { "id": 1, "name": "John Doe", "email": "john@example.com" }
 ]
 ```
 
 ---
 
-### 3. **Create a New Match**
-Create a new match between two players.
+### **GET /users/:id**
+**Description:** Retrieve a user by ID.
 
-- **URL:** `/matchs`
-- **Method:** `POST`
-- **Request Body:**
-  - `player1` (number): The ID of player 1.
-  - `player2` (number): The ID of player 2.
-  - `is_tournament` (boolean): Whether the match is part of a tournament.
-  - `tournament_id` (optional, number): The ID of the tournament, required if `is_tournament` is true.
-- **Response:**
-  - **201 Created**: If the match is successfully created, returns the match ID.
-  - **400 Bad Request**: If the tournament ID is missing when `is_tournament` is true.
-  - **404 Not Found**: If one of the players does not exist.
-  - **409 Conflict**: If both players are the same.
+**Parameters:**
+- `id` (path): User ID
 
-#### Example Request:
+**Response:**
+- 200 OK: Returns the user object.
+- 404 Not Found: If the user does not exist.
+
+**Example response:**
 ```json
-{
-  "player1": 1,
-  "player2": 2,
-  "is_tournament": true,
-  "tournament_id": 456
-}
-```
-
-#### Example Response:
-```json
-{
-  "id": "125"
-}
+{ "id": 1, "name": "John Doe", "email": "john@example.com" }
 ```
 
 ---
 
-### 4. **Update an Existing Match**
-Update an existing match's details.
+### **POST /users**
+**Description:** Create a new user.
 
-- **URL:** `/matchs/:id`
-- **Method:** `PATCH`
-- **Parameters:**
-  - `id` (string): The unique ID of the match.
-- **Request Body:**
-  - `player1` (optional, number): The new ID for player 1.
-  - `player2` (optional, number): The new ID for player 2.
-  - `winner` (optional, number or null): The new winner ID or `null` if there is no winner.
-  - `created_at` (optional, string): The new creation timestamp.
-  - `score` (optional, string): The new score of the match.
-  - `is_tournament` (optional, boolean): Whether the match is part of a tournament.
-- **Response:**
-  - **204 No Content**: If the match is successfully updated.
-  - **409 Conflict**: If there are validation errors (e.g., player IDs conflict, non-existing players).
-
-#### Example Request:
+**Body:**
 ```json
 {
-  "winner": 1,
-  "score": "3-2"
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepassword"
 }
 ```
 
-#### Example Response:
+**Response:**
+- 201 Created: Returns the new user ID.
+- 409 Conflict: If a user with the same email already exists.
+
+**Example response:**
 ```json
-{
-  "message": "Match updated successfully"
-}
+{ "id": 1 }
 ```
 
 ---
 
-### 5. **Delete a Match**
-Delete a specific match.
+### **PATCH /users/:id**
+**Description:** Update an existing user.
 
-- **URL:** `/matchs/:id`
-- **Method:** `DELETE`
-- **Parameters:**
-  - `id` (string): The unique ID of the match.
-- **Response:**
-  - **204 No Content**: If the match is successfully deleted.
-  - **404 Not Found**: If the match is not found.
+**Parameters:**
+- `id` (path): User ID
 
-#### Example Request:
-```
-DELETE /matchs/123
-```
-
-#### Example Response:
+**Optional Body Fields:**
 ```json
 {
-  "message": "Match deleted successfully"
+  "username": "newUsername",
+  "email": "newEmail@example.com",
+  "password": "newPassword",
+  "is_online": true,
+  "avatar": "avatarUrl",
+  "win_nbr": 10,
+  "loss_nbr": 2
 }
 ```
 
----
-
-## Error Codes
-
-| Code | Description |
-|------|-------------|
-| 400  | Bad Request: Missing or invalid parameters. |
-| 404  | Not Found: The requested resource was not found. |
-| 409  | Conflict: There was a conflict, such as a duplicate or invalid operation. |
-| 201  | Created: The resource was successfully created. |
-| 204  | No Content: The operation was successful, but there is no content to return. |
+**Response:**
+- 204 No Content: If the update is successful.
+- 404 Not Found: If the user does not exist.
+- 409 Conflict: If an error occurs during the update.
 
 ---
 
-## Notes
-- The `player1` and `player2` must always be distinct. Attempting to set the same player for both will result in a conflict error.
-- Tournament-related fields are required only when `is_tournament` is `true`.
-- Make sure the player and tournament IDs exist before creating or updating matches.
+### **DELETE /users/:id**
+**Description:** Delete a user by ID.
+
+**Parameters:**
+- `id` (path): User ID
+
+**Response:**
+- 204 No Content: If deletion is successful.
+- 404 Not Found: If the user does not exist.
+- 409 Conflict: If an error occurs during deletion.
+
+---
+
+### **GET /users/:id/friends**
+**Description:** Retrieve a user's friends list.
+
+**Parameters:**
+- `id` (path): User ID
+
+**Response:**
+- 200 OK: Returns an array of friend IDs.
+- 404 Not Found: If the user or friend list does not exist.
+
+**Example response:**
+```json
+[2, 3, 5]
+```
+
+---
+
+### **POST /users/:id/friends**
+**Description:** Add a friend to the user's friend list.
+
+**Parameters:**
+- `id` (path): User ID
+
+**Body:**
+```json
+{
+  "friend_id": 2
+}
+```
+
+**Response:**
+- 201 Created: If the friend was added successfully.
+- 404 Not Found: If the user or friend does not exist.
+- 409 Conflict: If the friend is already in the list or the user tries to add themselves.
+
+---
+
+### **DELETE /users/:user_id/friends/:friend_id**
+**Description:** Remove a friend from the user's friend list.
+
+**Parameters:**
+- `user_id` (path): User ID
+- `friend_id` (path): Friend's User ID
+
+**Response:**
+- 204 No Content: If the friend was removed successfully.
+- 404 Not Found: If the user, friend, or friendship does not exist.
+- 409 Conflict: If an error occurs during removal.
+
+---
+
+### **Error Response Format:**
+```json
+{ "error": "Error message" }
+```
 
