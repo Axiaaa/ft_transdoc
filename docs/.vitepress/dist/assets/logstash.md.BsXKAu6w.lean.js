@@ -1,0 +1,1 @@
+import{_ as t,c as a,ae as e,o as i}from"./chunks/framework.Dp8IdPkr.js";const k=JSON.parse('{"title":"Logtstash","description":"","frontmatter":{},"headers":[],"relativePath":"logstash.md","filePath":"logstash.md"}'),n={name:"logstash.md"};function l(o,s,h,p,r,c){return i(),a("div",null,s[0]||(s[0]=[e("",8)]))}const u=t(n,[["render",l]]);export{k as __pageData,u as default};

@@ -1,0 +1,1 @@
+import{_ as i,c as a,ae as t,o as e}from"./chunks/framework.Dp8IdPkr.js";const o=JSON.parse('{"title":"Filebeat","description":"","frontmatter":{},"headers":[],"relativePath":"filebeat.md","filePath":"filebeat.md"}'),n={name:"filebeat.md"};function l(h,s,p,k,r,E){return e(),a("div",null,s[0]||(s[0]=[t("",6)]))}const c=i(n,[["render",l]]);export{o as __pageData,c as default};
